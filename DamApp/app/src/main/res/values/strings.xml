@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">DamApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="main_nav_home_title">Acasa</string>
+    <string name="main_nav_transfer_market_title">Transfer market</string>
+    <string name="main_nav_about_title">Despre</string>
+    <string name="add_player_name_hint">Nume</string>
+    <string name="add_player_brithday_hint">Data nasterii</string>
+    <string name="add_player_number_hint">Numar</string>
+    <string name="add_player_fav_hand">Mana favorita</string>
+    <string name="add_player_left_hand">Stanga</string>
+    <string name="add_player_right_hand">Dreapta</string>
+    <string name="add_player_save">Salveaza</string>
+    <string name="add_player_position">Pozitia</string>
+    <string name="add_player_name_error_message">Numele este gresit!</string>
+    <string name="add_player_number_error_message">Numarul este gresit!</string>
+    <string name="add_player_birthday_error_message">Ziua de nastere este gresita.Format corect dd-MM-yyyy</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="transfer_market_btn_goalkeeper">Portar</string>
+    <string name="transfer_market_btn_inter">Inter</string>
+    <string name="transfer_market_btn_center">Centru</string>
+    <string name="transfer_market_btn_winger">Extrema</string>
+    <string name="about_tv_version">V 1.0</string>
+    <string name="about_tv_team">Grupe: 1076, 1077, 1078, 1081, 1082</string>
+    <string name="about_tv_year">Anul 2019</string>
+    <string name="about_tv_application_title" translatable="false">Dam App</string>
+    <string name="player_adapter_no_content">-</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="add_player_positions">
+        <item>Portar</item>
+        <item>Centru</item>
+        <item>Inter</item>
+        <item>Extrema</item>
+    </string-array>
+</resources>
