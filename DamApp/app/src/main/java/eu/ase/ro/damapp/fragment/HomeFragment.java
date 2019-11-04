@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
                 .inflate(R.layout.fragment_home, container,
                         false);
         initComponents(view);
-        intent = getActivity().getIntent();
+//        intent = getActivity().getIntent();
         return view;
     }
 
@@ -71,10 +71,12 @@ public class HomeFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Player player = (Player)lvPlayers.getItemAtPosition(position);
                     System.out.println("boule" + player);
+                    intent = new Intent(getContext(),
+                            AddPlayerActivity.class);
                     PLAYER_MODIFY_POSITION = position;
                     intent.putExtra(AddPlayerActivity.ADD_PLAYER_KEY, player);
-                    startActivityForResult(intent, AddPlayerActivity.RESULT_OK);
-                    onDestroy();
+                    startActivityForResult(intent, AddPlayerActivity.REQUEST_CODE_ADD_PLAYER);
+//                    onDestroy();
                 }
             });
         }

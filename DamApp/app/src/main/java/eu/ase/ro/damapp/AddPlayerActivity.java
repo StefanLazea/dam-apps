@@ -88,16 +88,6 @@ public class AddPlayerActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         player.toString(),
                         Toast.LENGTH_LONG).show();
-//                addName(player.getName());
-//                TextView textView = view.findViewById(R.id.lv_players_row_tv_name);
-//        if (name != null && !name.trim().isEmpty()) {
-//            textView.setText(name);
-//        } else {
-//            textView.setText(R.string.player_adapter_no_content);
-//        }
-                System.out.println("hello from the other side" + player);
-                TextView textView = findViewById(R.id.add_player_et_name);
-                textView.setText("ura");
             }
         }
     }
