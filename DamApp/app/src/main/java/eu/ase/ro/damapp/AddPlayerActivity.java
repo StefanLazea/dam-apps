@@ -20,12 +20,12 @@ import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import eu.ase.ro.damapp.util.Player;
 
 public class AddPlayerActivity extends AppCompatActivity {
     public static final String DATE_FORMAT = "dd-MM-yyyy";
     public static final String ADD_PLAYER_KEY = "addPlayerKey";
-    public static final int REQUEST_CODE_ADD_PLAYER = 200;
     TextInputEditText etName;
     TextInputEditText etBirthday;
     TextInputEditText etNumber;
@@ -40,6 +40,47 @@ public class AddPlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_player);
         initComponents();
         intent = getIntent();
+        if (intent.hasExtra(ADD_PLAYER_KEY)) {
+            Player player = intent.getParcelableExtra(ADD_PLAYER_KEY);
+            updateUI(player);
+        }
+    }
+
+    private void updateUI(Player player) {
+        etName.setText(player.getName());
+        if (player.getBirthday() != null) {
+            etBirthday.setText(new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(player.getBirthday()));
+        }
+
+        if (player.getNumber() != null) {
+            etNumber.setText(String.valueOf(player.getNumber()));
+        }
+
+        if (player.getPosition() != null) {
+            addPosition(player);
+        }
+
+        if (player.getFavHand() != null) {
+            addFavHand(player);
+        }
+    }
+
+    private void addFavHand(Player player) {
+        if (player.getFavHand().equals("Stanga")) {
+            rgFavHand.check(R.id.add_player_rb_left_hand);
+        } else {
+            rgFavHand.check(R.id.add_player_rb_right_hand);
+        }
+    }
+
+    private void addPosition(Player player) {
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spnPositions.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if (adapter.getItem(i).equals(player.getPosition())) {
+                spnPositions.setSelection(i);
+                break;
+            }
+        }
     }
 
     private void initComponents() {
@@ -75,23 +116,6 @@ public class AddPlayerActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADD_PLAYER
-                && resultCode == RESULT_OK
-                && data != null) {
-            Player player = data.getParcelableExtra(AddPlayerActivity
-                    .ADD_PLAYER_KEY);
-            if (player != null) {
-                Toast.makeText(getApplicationContext(),
-                        player.toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
 
     private Player createPlayerFromView() {
         String name = etName.getText().toString();
