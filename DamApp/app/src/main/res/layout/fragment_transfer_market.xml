@@ -50,4 +50,17 @@
         app:layout_constraintStart_toEndOf="@id/transfer_market_btn_center"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ListView
+        android:id="@+id/transfer_market_lv_response"
+        android:layout_width="409dp"
+        android:layout_height="681dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transfer_market_btn_goalkeeper" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
