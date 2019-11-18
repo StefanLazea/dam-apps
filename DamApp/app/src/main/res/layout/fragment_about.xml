@@ -9,10 +9,12 @@
 
     <RatingBar
         android:id="@+id/about_rb_feedback"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="210dp"
+        android:numStars="5" />
 
     <TextView
         android:id="@+id/about_tv_version"
