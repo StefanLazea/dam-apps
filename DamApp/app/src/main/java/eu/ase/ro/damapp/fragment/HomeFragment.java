@@ -16,7 +16,7 @@ import java.util.List;
 
 import eu.ase.ro.damapp.AddPlayerActivity;
 import eu.ase.ro.damapp.R;
-import eu.ase.ro.damapp.util.Player;
+import eu.ase.ro.damapp.database.model.Player;
 import eu.ase.ro.damapp.util.PlayerAdapter;
 
 import static android.app.Activity.RESULT_OK;

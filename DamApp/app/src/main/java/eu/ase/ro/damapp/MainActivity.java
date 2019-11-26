@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 import eu.ase.ro.damapp.fragment.AboutFragment;
 import eu.ase.ro.damapp.fragment.HomeFragment;
 import eu.ase.ro.damapp.fragment.TransferMarketFragment;
-import eu.ase.ro.damapp.util.Player;
+import eu.ase.ro.damapp.database.model.Player;
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_ADD_PLAYER = 200;

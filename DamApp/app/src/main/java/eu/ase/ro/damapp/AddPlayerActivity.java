@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -18,10 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import eu.ase.ro.damapp.util.Player;
+import eu.ase.ro.damapp.database.model.Player;
 
 public class AddPlayerActivity extends AppCompatActivity {
     public static final String DATE_FORMAT = "dd-MM-yyyy";
@@ -40,6 +38,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_player);
         initComponents();
         intent = getIntent();
+        //cand facem modificarea / apasam pe listview
         if (intent.hasExtra(ADD_PLAYER_KEY)) {
             Player player = intent.getParcelableExtra(ADD_PLAYER_KEY);
             updateUI(player);

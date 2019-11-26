@@ -20,7 +20,7 @@ public class HttpManager extends
     private BufferedReader bufferedReader;
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground(String  ... strings) {
         StringBuilder result = new StringBuilder();
         try {
             url = new URL(strings[0]); //primul element este url

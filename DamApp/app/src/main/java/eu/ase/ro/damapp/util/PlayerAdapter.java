@@ -1,7 +1,6 @@
 package eu.ase.ro.damapp.util;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import java.util.Locale;
 
 import eu.ase.ro.damapp.AddPlayerActivity;
 import eu.ase.ro.damapp.R;
+import eu.ase.ro.damapp.database.model.Player;
 
 public class PlayerAdapter extends ArrayAdapter<Player> {
     private Context context;

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Locale;
 
 import eu.ase.ro.damapp.AddPlayerActivity;
-import eu.ase.ro.damapp.util.Player;
 
 public class JsonParser {
     public static HttpResponse parseJson(String json) {
