@@ -1,13 +1,18 @@
 package eu.ase.ro.damapp.fragment;
 
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -17,6 +22,7 @@ import java.util.List;
 import eu.ase.ro.damapp.AddPlayerActivity;
 import eu.ase.ro.damapp.R;
 import eu.ase.ro.damapp.database.model.Player;
+import eu.ase.ro.damapp.database.service.PlayerService;
 import eu.ase.ro.damapp.util.PlayerAdapter;
 
 import static android.app.Activity.RESULT_OK;
@@ -71,6 +77,17 @@ public class HomeFragment extends Fragment {
 
 
             lvPlayers.setOnItemClickListener(lvPlayersItemSelected());
+            lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent,
+                                               View view,
+                                               final int position,
+                                               long id
+                ) {
+                    buildAlertDialog(position);
+                    return true;
+                }
+            });
         }
 
     }
@@ -96,9 +113,7 @@ public class HomeFragment extends Fragment {
                 && data != null) {
             Player player = data.getParcelableExtra(ADD_PLAYER_KEY);
             if (player != null) {
-                updatePlayer(player);
-                PlayerAdapter adapter = (PlayerAdapter) lvPlayers.getAdapter();
-                adapter.notifyDataSetChanged();
+                updatePlayerIntoDb(player);
             }
         }
     }
@@ -110,5 +125,55 @@ public class HomeFragment extends Fragment {
         players.get(selectedPlayerIndex).setNumber(player.getNumber());
         players.get(selectedPlayerIndex).setFavHand(player.getFavHand());
 
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void updatePlayerIntoDb(final Player player) {
+        player.setId(players.get(selectedPlayerIndex).getId());
+        new PlayerService.Update(getContext()) {
+            @Override
+            protected void onPostExecute(Integer result) {
+                if (result == 1) {
+                    updatePlayer(player);
+                    PlayerAdapter adapter = (PlayerAdapter) lvPlayers.getAdapter();
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }.execute(player);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void  deletePlayerFromDb(final int index){
+        new PlayerService.Delete(getContext()){
+            @Override
+            protected void onPostExecute(Integer result) {
+                if(result == 1){
+                    players.remove((index));
+                    notifyInternal();
+                }else{
+                    Toast.makeText(getContext(), R.string.home_delete_not_succeded, Toast.LENGTH_LONG).show();
+                }
+            }
+        }.execute(players.get(index));
+    }
+
+    private void buildAlertDialog(final int position){
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.home_fragment_alert_title)
+                .setMessage(getString(R.string.home_fragment_alert_dialog_message,
+                        players.get(position).getName()))
+                .setPositiveButton(R.string.home_fragment_alert_positive_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deletePlayerFromDb(position);
+                    }
+                })
+                .setNegativeButton(R.string.home_fragment_alert_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), R.string.home_fragment_cancel_message, Toast.LENGTH_LONG).show();
+                    }
+                }).create();
+        dialog.show();
     }
 }

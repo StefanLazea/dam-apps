@@ -39,6 +39,12 @@
     <string name="about_tv_year">Anul 2019</string>
     <string name="about_tv_application_title" translatable="false">Dam App</string>
     <string name="player_adapter_no_content">-</string>
+    <string name="home_fragment_alert_title">Stegere jucator</string>
+    <string name="home_fragment_alert_dialog_message">Sigur doresti sa stergi jucatorul %1$s ?</string>
+    <string name="home_fragment_alert_positive_button">Da</string>
+    <string name="home_fragment_alert_cancel">NU</string>
+    <string name="home_fragment_cancel_message">Stergere anulata</string>
+    <string name="home_delete_not_succeded">Nu s-a sters</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string-array name="add_player_positions">

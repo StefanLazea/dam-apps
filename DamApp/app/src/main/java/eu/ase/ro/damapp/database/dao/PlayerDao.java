@@ -11,6 +11,7 @@ import java.util.List;
 import eu.ase.ro.damapp.database.model.Player;
 
 //legatura cu baza de date; se va folosi doar de conexiune
+//operatii dml
 @Dao
 public interface PlayerDao {
     @Query("SELECT * FROM players")

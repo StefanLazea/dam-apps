@@ -1,15 +1,11 @@
 package eu.ase.ro.damapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +15,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import eu.ase.ro.damapp.database.model.Player;
+import eu.ase.ro.damapp.database.service.PlayerService;
 import eu.ase.ro.damapp.fragment.AboutFragment;
 import eu.ase.ro.damapp.fragment.HomeFragment;
 import eu.ase.ro.damapp.fragment.TransferMarketFragment;
-import eu.ase.ro.damapp.database.model.Player;
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_ADD_PLAYER = 200;
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         configNavigation();
         initComponents();
+        getPlayersFromDb();
         openDefaultFragment(savedInstanceState);
     }
 
@@ -116,10 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         player.toString(),
                         Toast.LENGTH_LONG).show();
-                players.add(player);
-                if(currentFragment instanceof HomeFragment){
-                    ((HomeFragment)currentFragment).notifyInternal();
-                }
+                insertPlayerIntoDb(player);
             }
         }
     }
@@ -152,5 +154,40 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBar);
         //sincronizare actionBartoggle
         actionBar.syncState();
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    private void insertPlayerIntoDb(Player player) {
+        new PlayerService.Insert(getApplicationContext()) {
+
+            @Override
+            protected void onPostExecute(Player result) {
+                if (result != null) {
+                    players.add(result);
+                    notifyAdapter();
+                }
+            }
+        }.execute(player);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void getPlayersFromDb() {
+        new PlayerService.GetAll(getApplicationContext()) {
+            @Override
+            protected void onPostExecute(List<Player> results) {
+                if (results != null) {
+                    players.clear();
+                    players.addAll(results);
+                    notifyAdapter();
+                }
+            }
+        }.execute();
+    }
+
+    private void notifyAdapter() {
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).notifyInternal();
+        }
     }
 }
